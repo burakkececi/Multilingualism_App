@@ -1,20 +1,13 @@
 package dataAccess.concretes;
 
-import business.abstracts.ILanguageService;
-import business.abstracts.IQuestionService;
-import business.abstracts.IQuizService;
-import business.abstracts.IUnitService;
-import business.concretes.LanguageCreator;
-import business.concretes.QuestionCreator;
-import business.concretes.QuizCreator;
-import business.concretes.UnitCreator;
 import dataAccess.abstracts.IFileWriter;
 import entities.Language;
-import entities.MultilingualismApp;
 import entities.Quiz;
 import entities.Unit;
+import entities.User;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -45,5 +38,36 @@ public class CSVFileWriter implements IFileWriter {
             }
         }
 
+    }
+
+    @Override
+    public void writeUserDetails(List<User> users, String filename) {
+
+        File file = new File(filename);
+
+        if (file.exists()) {
+            System.out.println(filename + " file exists!");
+        } else {
+            try (PrintWriter writer = new PrintWriter(file)) {
+                users.forEach( user -> {
+                    writer.append(user.getUsername())
+                            .append(", ")
+                            .append(user.getPassword())
+                            .append(", ")
+                            .append(user.getChosenLanguage().name())
+                            .append(", ")
+                            .append(String.valueOf(user.getNumberOfSolvedUnits()))
+                            .append(", ")
+                            .append(String.valueOf(user.getNumberOfSolvedQuizzes()))
+                            .append(", ")
+                            .append(String.valueOf(user.getTotalPoints()))
+                            .append("\n");
+                });
+                System.out.println(filename + " is successfully created.");
+            }catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
     }
 }
