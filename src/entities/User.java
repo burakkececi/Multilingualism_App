@@ -10,9 +10,15 @@ public class User implements Serializable {
     private final String password;
     private final int streakDays;
     private int numberOfSolvedUnits;
+    private int numberOfSolvedQuizzes;
     private int totalPoints;
     private LanguageName chosenLanguage;
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.streakDays = generateStreakDays();
+    }
 
     public int getNumberOfSolvedUnits() {
         return numberOfSolvedUnits;
@@ -33,16 +39,17 @@ public class User implements Serializable {
     public void addPoints(int points) {
         this.totalPoints += points;
     }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.streakDays = generateStreakDays();
-    }
-
     public int generateStreakDays() {
         // randomly generated streak between 0 and 365 days
         return (int) (Math.random() * 366);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setChosenLanguage(LanguageName chosenLanguage) {
@@ -62,4 +69,11 @@ public class User implements Serializable {
         return IRandomNumber.generateRandomNumber(min, max);
     }
 
+    public int getNumberOfSolvedQuizzes() {
+        return numberOfSolvedQuizzes;
+    }
+
+    public void setNumberOfSolvedQuizzes(int numberOfQuizzesToSolve) {
+        this.numberOfSolvedQuizzes = numberOfQuizzesToSolve;
+    }
 }

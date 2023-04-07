@@ -19,6 +19,9 @@ public class MultilingualismApp {
     private List<Language> languages;
     private List<League> leagues;
 
+    private final String DATAPATH_LANGUAGE = "languages.csv";
+    private final String DATAPATH_USERS = "users.csv"; // TODO: users için datapath belirlenecek.
+
     public MultilingualismApp(List<User> users) {
         this.users = users;
     }
@@ -47,10 +50,17 @@ public class MultilingualismApp {
     private List<Language> getLanguages() {
         return languages;
     }
-
-    private void saveLanguagesToFile() {
+    private List<User> getUsers() {
+        return users;
+    }
+    private void saveLanguagesToFile(String filename) {
         IFileWriter iFileWriter = new CSVFileWriter();
-        iFileWriter.writeLanguageDetails(getLanguages(), "languages.csv");
+        iFileWriter.writeLanguageDetails(getLanguages(), filename);
+    }
+
+    private void saveUsersToFile(String filename) {
+        IFileWriter iFileWriter = new CSVFileWriter();
+        iFileWriter.writeUserDetails(getUsers(), filename);
     }
 
     private LanguageName getRandomLanguage() {
@@ -75,6 +85,8 @@ public class MultilingualismApp {
     private int userTakeQuizzes(User user) {
         int numberOfQuizzes = findTheLanguage(user.getChosenLanguage()).getNumberOfQuizzes();
         int numberOfQuizzesToSolve = user.decideTheNumberOfQuizzes(1, numberOfQuizzes);
+        user.setNumberOfSolvedQuizzes(numberOfQuizzesToSolve);
+
         int numberOfUnits = 0;
         int solvedQuizzes = 0;
         for (Unit unit : findTheLanguage(user.getChosenLanguage()).getUnits()) {
@@ -123,12 +135,13 @@ public class MultilingualismApp {
 
     public void start() {
         createLanguages();
-        saveLanguagesToFile();
+        saveLanguagesToFile(DATAPATH_LANGUAGE);
         createLeagues();
         usersChooseLanguages();
         usersTakesQuizzes();
         fillTheLeagues();
         distributeUsersToLeagues();
+        saveUsersToFile(DATAPATH_USERS);
     }
 
 }

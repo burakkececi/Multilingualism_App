@@ -36,8 +36,4 @@ public class QuizCreator implements IQuizService {
         return new Quiz(questions, index);
     }
 
-    public List<Question> getQuestion() {
-        return questions;
-    }
-
 }
