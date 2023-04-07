@@ -32,4 +32,8 @@ public class Language {
         }
         return totalNumberOfQuizzes;
     }
+
+    public int getNumberOfUnits() {
+        return units.size();
+    }
 }

@@ -47,12 +47,15 @@ public class MultilingualismApp {
         }
         throw new BusinessException(ErrorType.LANGUAGE_NOT_FOUND, "Language not found: " + languageName);
     }
+
     private List<Language> getLanguages() {
         return languages;
     }
+
     private List<User> getUsers() {
         return users;
     }
+
     private void saveLanguagesToFile(String filename) {
         IFileWriter iFileWriter = new CSVFileWriter();
         iFileWriter.writeLanguageDetails(getLanguages(), filename);
@@ -133,6 +136,86 @@ public class MultilingualismApp {
         }
     }
 
+    private User findTheUserWithMaxPoints() {
+        User userWithMaxPoints = users.get(0);
+        for (User user : users) {
+            if (user.getTotalPoints() > userWithMaxPoints.getTotalPoints()) {
+                userWithMaxPoints = user;
+            }
+        }
+        return userWithMaxPoints;
+    }
+
+    private LanguageName findTheLanguageWithMaxNumberOfUnits() {
+        LanguageName languageName = LanguageName.values()[0];
+        int maxNumberOfUnits = 0;
+        for (Language language : languages) {
+            if (language.getNumberOfUnits() > maxNumberOfUnits) {
+                maxNumberOfUnits = language.getNumberOfUnits();
+                languageName = language.getLanguageName();
+            }
+        }
+        return languageName;
+    }
+
+    private LanguageName findTheLanguageWithMaxNumberOfQuizzes() {
+        LanguageName languageName = LanguageName.values()[0];
+        int maxNumberOfQuizzes = 0;
+        for (Language language : languages) {
+            if (language.getNumberOfQuizzes() > maxNumberOfQuizzes) {
+                maxNumberOfQuizzes = language.getNumberOfQuizzes();
+                languageName = language.getLanguageName();
+            }
+        }
+        return languageName;
+    }
+
+    private List<User> findTheTopNUsersInGivenLeagueForGivenLanguage(LanguageName languageName, String leagueName, int n) {
+        List<User> topThreeUsers = new ArrayList<>();
+        for (League league : leagues) {
+            if (league.getLanguageName().equals(languageName)) {
+                topThreeUsers = league.getTheBestUsersInLeague(leagueName, n);
+            }
+        }
+        return topThreeUsers;
+    }
+
+    private User findTheUserWhoSolvedTheMostUnits(LanguageName languageName) {
+        User userWhoSolvedTheMostUnits = users.get(0);
+        for (User user : users) {
+            if (user.getChosenLanguage().equals(languageName)) {
+                if (user.getNumberOfSolvedUnits() > userWhoSolvedTheMostUnits.getNumberOfSolvedUnits()) {
+                    userWhoSolvedTheMostUnits = user;
+                }
+            }
+        }
+        return userWhoSolvedTheMostUnits;
+    }
+
+    private Language findTheLanguageFromLanguageName(LanguageName languageName) {
+        for (Language language : languages) {
+            if (language.getLanguageName().equals(languageName)) {
+                return language;
+            }
+        }
+        throw new BusinessException(ErrorType.LANGUAGE_NOT_FOUND, "Language not found: " + languageName);
+    }
+
+    private String formatLanguageName(LanguageName language) {
+        String languageName = language.name();
+        return Character.toUpperCase(languageName.charAt(0)) + languageName.substring(1).toLowerCase();
+    }
+
+    private void display() {
+        System.out.println("1- " + findTheUserWithMaxPoints().getUsername() + " " + findTheUserWithMaxPoints().getTotalPoints() + " points");
+        System.out.println("2- " + findTheUserWhoSolvedTheMostUnits(LanguageName.GERMAN).getUsername() + " Unit " + findTheUserWhoSolvedTheMostUnits(LanguageName.GERMAN).getNumberOfSolvedUnits());
+        System.out.println("3- " + formatLanguageName(findTheLanguageWithMaxNumberOfUnits()) + " " + findTheLanguageFromLanguageName(findTheLanguageWithMaxNumberOfUnits()).getNumberOfUnits() + " Units");
+        System.out.println("4- " + formatLanguageName(findTheLanguageWithMaxNumberOfQuizzes()) + " " + findTheLanguageFromLanguageName(findTheLanguageWithMaxNumberOfQuizzes()).getNumberOfQuizzes() + " Quizzes");
+        System.out.println("5- Italian Silver League Top 3: " + "1." + findTheTopNUsersInGivenLeagueForGivenLanguage(LanguageName.ITALIAN, "Silver", 3).get(0).getUsername()
+                + " 2." + findTheTopNUsersInGivenLeagueForGivenLanguage(LanguageName.ITALIAN, "Silver", 3).get(1).getUsername()
+                + " 3." + findTheTopNUsersInGivenLeagueForGivenLanguage(LanguageName.ITALIAN, "Silver", 3).get(2).getUsername());
+    }
+
     public void start() {
         createLanguages();
         saveLanguagesToFile(DATAPATH_LANGUAGE);
@@ -142,6 +225,7 @@ public class MultilingualismApp {
         fillTheLeagues();
         distributeUsersToLeagues();
         saveUsersToFile(DATAPATH_USERS);
+        display();
     }
 
 }

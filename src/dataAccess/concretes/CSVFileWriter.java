@@ -37,7 +37,6 @@ public class CSVFileWriter implements IFileWriter {
                 System.out.println(e.getMessage());
             }
         }
-
     }
 
     @Override
@@ -49,7 +48,7 @@ public class CSVFileWriter implements IFileWriter {
             System.out.println(filename + " file exists!");
         } else {
             try (PrintWriter writer = new PrintWriter(file)) {
-                users.forEach( user -> {
+                users.forEach(user -> {
                     writer.append(user.getUsername())
                             .append(", ")
                             .append(user.getPassword())
@@ -64,9 +63,8 @@ public class CSVFileWriter implements IFileWriter {
                             .append("\n");
                 });
                 System.out.println(filename + " is successfully created.");
-            }catch (FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
-
             }
         }
     }
