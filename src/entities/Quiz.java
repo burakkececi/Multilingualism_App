@@ -20,15 +20,19 @@ public class Quiz {
         return quizNo;
     }
 
+    private int getNumberOfQuestion(Class c){
+        return (int) questions.stream()
+                .filter(question -> question.getClass().getSimpleName().equals(c.getSimpleName()))
+                .count();
+    }
+
     @Override
     public String toString() {
-        int numR = 0, numL = 0, numS = 0, numW = 0;
-        for (Question question: getQuestions()) {
-            if(question.getClass() == ReadingQuestion.class) numR++;
-            else if(question.getClass() == ListeningQuestion.class) numL++;
-            else if(question.getClass() == SpeakingQuestion.class) numS++;
-            else if(question.getClass() == WordMatchingQuestion.class) numW++;
-        }
+        int numR = getNumberOfQuestion(ReadingQuestion.class),
+                numL = getNumberOfQuestion(ListeningQuestion.class),
+                numS = getNumberOfQuestion(SpeakingQuestion.class),
+                numW = getNumberOfQuestion(WordMatchingQuestion.class);
+
         return "Quiz " + getQuizNo() + ", "
                 + numR + "R:"
                 + numL + "L:"
