@@ -1,13 +1,12 @@
 package entities;
 
-import business.abstracts.*;
-import business.concretes.*;
+import business.abstracts.IRandomNumber;
+import business.concretes.LanguageValidator;
 import dataAccess.abstracts.IFileWriter;
 import dataAccess.concretes.CSVFileWriter;
 import errors.BusinessException;
 import errors.ErrorType;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class MultilingualismApp {
         throw new BusinessException(ErrorType.LANGUAGE_NOT_FOUND, "Language not found: " + languageName);
     }
 
-    private void createLanguages(String datapath){
-        LanguageValidator languageValidator = new LanguageValidator(datapath);
+    private void createLanguages(String dataPath){
+        LanguageValidator languageValidator = new LanguageValidator(dataPath);
         this.languages = languageValidator.getLanguages();
     }
 

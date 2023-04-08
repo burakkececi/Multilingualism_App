@@ -1,6 +1,6 @@
 package entities;
 
-public abstract class Question implements Cloneable {
+public abstract class Question {
 
     private int points;
 
@@ -14,8 +14,5 @@ public abstract class Question implements Cloneable {
     public int getPoints() {
         return points;
     }
-
-    @Override
-    public abstract Question clone();
 
 }

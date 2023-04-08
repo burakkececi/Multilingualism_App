@@ -9,11 +9,10 @@ import java.util.List;
 
 public class QuestionMapper implements CSVMapper {
 
-    private final int index;
-
     private enum QuestionTypes {READING, LISTENING, SPEAKING, WORD_MATCHING}
 
-    private List<Question> questionList;
+    private final int index;
+    private final List<Question> questionList;
 
     public QuestionMapper(int index) {
         this.index = index;
@@ -25,20 +24,27 @@ public class QuestionMapper implements CSVMapper {
         return iQuestionService.createQuestion(questionType.name());
     }
 
+    private void addQuestion(Question question) {
+        questionList.add(question);
+    }
+
+    private List<Question> getQuestionList() {
+        return questionList;
+    }
+
     @Override
     public List<Question> map(String[] data) {
         String[] questions = data[index].strip().split(":");
 
         for (String token : questions) {
             for (QuestionTypes questionType : QuestionTypes.values()) {
-                if (token.endsWith(questionType.name().substring(0,1))) {
+                if (token.endsWith(questionType.name().substring(0, 1))) {
                     for (int i = 0; i < Integer.parseInt(String.valueOf(token.charAt(0))); i++) {
-                        questionList.add(
-                                createQuestion(questionType));
+                        addQuestion(createQuestion(questionType));
                     }
                 }
             }
         }
-        return questionList;
+        return getQuestionList();
     }
 }

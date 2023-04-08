@@ -1,9 +1,7 @@
 package dataAccess.concretes;
 
 import business.mappers.CSVMapper;
-import business.mappers.LanguageMapper;
 import dataAccess.abstracts.IFileReader;
-import entities.Language;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +13,7 @@ public class CSVFileReader<T> implements IFileReader<T> {
 
     private final String path;
     private final String delimiter;
-    private CSVMapper<T> mapper;
+    private final CSVMapper<T> mapper;
 
     public CSVFileReader(String path, String delimiter, CSVMapper<T> mapper) {
         this.path = path;
@@ -40,12 +38,6 @@ public class CSVFileReader<T> implements IFileReader<T> {
         }
         return elements;
     }
-
-    // TODO : çalışma şekli bu şekilde.
-    /*public static void main(String[] args){
-        CSVFileReader<Language> csvFileReader = new CSVFileReader<>("languages.csv", ",", new LanguageMapper());
-        List<Language> languages = csvFileReader.getAll();
-    }*/
 
 }
 

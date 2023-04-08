@@ -30,12 +30,6 @@ public class Quiz {
                 .count();
     }
 
-// TODO: 7.04.2023 incelerken burayı unutma
-//    private <T> int getNumberOfQuestion(T questionType){
-//        return (int) questions.stream()
-//                .filter(question -> question.getClass().getSimpleName().equals(questionType.getClass().getSimpleName()))
-//                .count();
-//    }
 
     @Override
     public String toString() {

@@ -26,7 +26,7 @@ public class QuestionCreator implements IQuestionService {
         return generateQuestion(QuestionTypes.valueOf(questionType));
     }
 
-    private Question generateQuestion(QuestionTypes questionType){
+    private Question generateQuestion(QuestionTypes questionType) {
         int MIN_DURATION = 2;
         int MAX_DURATION = 5;
 
@@ -48,4 +48,5 @@ public class QuestionCreator implements IQuestionService {
             default -> throw new BusinessException(ErrorType.INVALID_QUESTION_TYPE, "Invalid question type!");
         }
     }
+
 }

@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Language {
@@ -18,11 +17,7 @@ public class Language {
     }
 
     public List<Unit> getUnits() {
-        List<Unit> copyUnits = new ArrayList<>();
-        for (Unit unit : units) {
-            copyUnits.add(new Unit(unit));
-        }
-        return copyUnits;
+        return units;
     }
 
     public int getNumberOfQuizzes() {
@@ -36,4 +31,5 @@ public class Language {
     public int getNumberOfUnits() {
         return units.size();
     }
+
 }

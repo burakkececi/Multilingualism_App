@@ -18,14 +18,15 @@ import java.util.List;
 
 public class LanguageValidator {
 
-    private final String datapath;
+    private final String dataPath;
     private List<Language> languages;
 
-    public LanguageValidator(String datapath) {
-        this.datapath = datapath;
+    public LanguageValidator(String dataPath) {
+        this.dataPath = dataPath;
     }
 
     private ILanguageService createLanguageCreator() {
+        setLanguageList(new ArrayList<>());
         IQuestionService iQuestionService = new QuestionCreator();
         IQuizService iQuizService = new QuizCreator(iQuestionService);
         IUnitService iUnitService = new UnitCreator(iQuizService);
@@ -33,23 +34,20 @@ public class LanguageValidator {
     }
 
     public List<Language> getLanguages() {
-        if (isFileExist(datapath)) {
-            return getLanguagesFromFile(datapath);
-
+        if (isFileExist(dataPath)) {
+            return getLanguagesFromFile(dataPath);
         } else {
-            this.languages = createLanguages();
-            saveLanguagesToFile(datapath);
-            return this.languages;
+            createLanguages();
+            saveLanguagesToFile(dataPath);
+            return getLanguageList();
         }
     }
 
-    private List<Language> createLanguages() {
-        this.languages = new ArrayList<>();
+    private void createLanguages() {
         ILanguageService iLanguageService = createLanguageCreator();
         for (LanguageName language : LanguageName.values()) {
-            languages.add(iLanguageService.createLanguage(language));
+            addLanguage(iLanguageService.createLanguage(language));
         }
-        return languages;
     }
 
     private void saveLanguagesToFile(String filename) {
@@ -57,21 +55,26 @@ public class LanguageValidator {
         iFileWriter.writeLanguageDetails(getLanguageList(), filename);
     }
 
+    private void addLanguage(Language language) {
+        this.languages.add(language);
+    }
+
     private List<Language> getLanguageList() {
         return this.languages;
     }
 
-    private List<Language> getLanguagesFromFile(String datapath) {
-        this.languages = new ArrayList<>();
-        IFileReader<Language> iFileReader = new CSVFileReader<>(datapath, ",", new LanguageMapper());
-        this.languages = iFileReader.getAll();
-        return this.languages;
+    private void setLanguageList(List<Language> languages) {
+        this.languages = languages;
     }
 
-    private boolean isFileExist(String datapath) {
-        File file = new File(datapath);
-        return file.exists();
+    private List<Language> getLanguagesFromFile(String dataPath) {
+        IFileReader<Language> iFileReader = new CSVFileReader<>(dataPath, ",", new LanguageMapper());
+        setLanguageList(iFileReader.getAll());
+        return getLanguageList();
     }
 
+    private boolean isFileExist(String dataPath) {
+        return new File(dataPath).exists();
+    }
 
 }

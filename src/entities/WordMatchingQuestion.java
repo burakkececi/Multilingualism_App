@@ -11,18 +11,4 @@ public class WordMatchingQuestion extends Question {
         this.wordMap = wordMap;
     }
 
-    public WordMatchingQuestion(WordMatchingQuestion oldWordMatchingQuestion) {
-        super();
-        if (oldWordMatchingQuestion == null) {
-            System.out.println("Fatal Error!");
-            System.exit(0);
-        }
-        this.wordMap = oldWordMatchingQuestion.wordMap; // there is not an object inside.
-    }
-
-    @Override
-    public WordMatchingQuestion clone() {
-        return new WordMatchingQuestion(this);
-    }
-
 }

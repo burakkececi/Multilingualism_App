@@ -15,12 +15,9 @@ public class CSVFileWriter implements IFileWriter {
 
     @Override
     public void writeLanguageDetails(List<Language> languages, String filename) {
-
         File file = new File(filename);
 
-        if (file.exists()) {
-            System.out.println(filename + " file exists!");
-        } else {
+        if (!file.exists()) {
             try (PrintWriter writer = new PrintWriter(file)) {
                 for (Language language : languages) {
                     writer.append(language.getLanguageName().name()).append(", ");
@@ -32,7 +29,6 @@ public class CSVFileWriter implements IFileWriter {
                     }
                     writer.append("\n");
                 }
-                System.out.println(filename + " is successfully created.");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -41,7 +37,6 @@ public class CSVFileWriter implements IFileWriter {
 
     @Override
     public void writeUserDetails(List<User> users, String filename) {
-
         File file = new File(filename);
         try (PrintWriter writer = new PrintWriter(file)) {
             users.forEach(user -> {
@@ -61,7 +56,7 @@ public class CSVFileWriter implements IFileWriter {
             System.out.println(filename + " is successfully created.");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-
         }
     }
+
 }
