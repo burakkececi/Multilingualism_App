@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Unit {
 
-    private int unitNo;
+    private final int unitNo;
     private final List<Quiz> quizzes;
     public Unit(List<Quiz> quizzes, int unitNo) {
         this.quizzes = quizzes;
@@ -36,4 +36,5 @@ public class Unit {
     private int getUnitNo() {
         return unitNo;
     }
+
 }
