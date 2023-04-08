@@ -53,7 +53,6 @@ public class CSVFileWriter implements IFileWriter {
                         .append(String.valueOf(user.getTotalPoints()))
                         .append("\n");
             });
-            System.out.println(filename + " is successfully created.");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }

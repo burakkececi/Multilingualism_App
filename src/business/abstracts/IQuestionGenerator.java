@@ -11,7 +11,6 @@ public interface IQuestionGenerator {
 
     static String generateRandomString() {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        // Generate the random string
         StringBuilder sb = new StringBuilder();
         int length = IRandomNumber.generateRandomNumber(0, 10);
         for (int i = 0; i < length; i++) {

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        // Muhammed Efe İncir 270201029
+        // Burak Keçeci 290201103
 
-        // create a file reader
-        // read the data.txt
         String path = "src/data/users.csv";
 
         // read all users from csv file.
@@ -19,5 +19,6 @@ public class Main {
 
         MultilingualismApp multilingualismApp = new MultilingualismApp(users);
         multilingualismApp.start();
+
     }
 }

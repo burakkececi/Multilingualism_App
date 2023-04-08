@@ -105,7 +105,6 @@ public class MultilingualismApp {
         for (User user : users) {
             for (League league : leagues) {
                 if (user.getChosenLanguage().equals(league.getLanguageName())) {
-                    System.out.println("User added to league " + league.getLanguageName());
                     league.addUser(user);
                 }
             }
