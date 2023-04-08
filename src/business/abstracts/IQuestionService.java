@@ -1,10 +1,10 @@
 package business.abstracts;
 
 import entities.Question;
-import errors.BusinessException;
 
 public interface IQuestionService {
 
-    Question createQuestion() throws BusinessException;
+    Question createQuestion();
+    Question createQuestion(String questionType);
 
 }
