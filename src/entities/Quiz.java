@@ -4,8 +4,12 @@ import java.util.List;
 
 public class Quiz {
 
-    private final int quizNo;
+    private int quizNo;
     private final List<Question> questions;
+
+    public Quiz(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public Quiz(List<Question> questions, int quizNo) {
         this.questions = questions;
@@ -20,7 +24,7 @@ public class Quiz {
         return quizNo;
     }
 
-    private int getNumberOfQuestion(Class c){
+    private <T> int getNumberOfQuestion(Class<T> c){
         return (int) questions.stream()
                 .filter(question -> question.getClass().getSimpleName().equals(c.getSimpleName()))
                 .count();

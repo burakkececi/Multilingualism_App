@@ -6,6 +6,11 @@ public class Unit {
 
     private final int unitNo;
     private final List<Quiz> quizzes;
+
+    public Unit(List<Quiz> quizzes){
+        this.quizzes = quizzes;
+    }
+
     public Unit(List<Quiz> quizzes, int unitNo) {
         this.quizzes = quizzes;
         this.unitNo = unitNo;

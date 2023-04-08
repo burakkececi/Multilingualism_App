@@ -43,29 +43,25 @@ public class CSVFileWriter implements IFileWriter {
     public void writeUserDetails(List<User> users, String filename) {
 
         File file = new File(filename);
+        try (PrintWriter writer = new PrintWriter(file)) {
+            users.forEach(user -> {
+                writer.append(user.getUsername())
+                        .append(", ")
+                        .append(user.getPassword())
+                        .append(", ")
+                        .append(user.getChosenLanguage().name())
+                        .append(", ")
+                        .append(String.valueOf(user.getNumberOfSolvedUnits()))
+                        .append(", ")
+                        .append(String.valueOf(user.getNumberOfSolvedQuizzes()))
+                        .append(", ")
+                        .append(String.valueOf(user.getTotalPoints()))
+                        .append("\n");
+            });
+            System.out.println(filename + " is successfully created.");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
 
-        if (file.exists()) {
-            System.out.println(filename + " file exists!");
-        } else {
-            try (PrintWriter writer = new PrintWriter(file)) {
-                users.forEach(user -> {
-                    writer.append(user.getUsername())
-                            .append(", ")
-                            .append(user.getPassword())
-                            .append(", ")
-                            .append(user.getChosenLanguage().name())
-                            .append(", ")
-                            .append(String.valueOf(user.getNumberOfSolvedUnits()))
-                            .append(", ")
-                            .append(String.valueOf(user.getNumberOfSolvedQuizzes()))
-                            .append(", ")
-                            .append(String.valueOf(user.getTotalPoints()))
-                            .append("\n");
-                });
-                System.out.println(filename + " is successfully created.");
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 }
