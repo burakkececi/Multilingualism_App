@@ -20,7 +20,7 @@ public class MultilingualismApp {
     private List<League> leagues;
 
     private final String DATAPATH_LANGUAGE = "languages.csv";
-    private final String DATAPATH_USERS = "users.csv"; // TODO: users için datapath belirlenecek.
+    private final String DATAPATH_USERS = "users.csv";
 
     public MultilingualismApp(List<User> users) {
         this.users = users;
