@@ -1,5 +1,6 @@
 package entities;
 
+import business.abstracts.ILanguageValidate;
 import business.abstracts.IRandomNumber;
 import business.concretes.LanguageValidator;
 import dataAccess.abstracts.IFileWriter;
@@ -31,7 +32,7 @@ public class MultilingualismApp {
     }
 
     private void createLanguages(String dataPath){
-        LanguageValidator languageValidator = new LanguageValidator(dataPath);
+        ILanguageValidate languageValidator = new LanguageValidator(dataPath);
         this.languages = languageValidator.getLanguages();
     }
 
