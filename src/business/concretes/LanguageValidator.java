@@ -1,9 +1,6 @@
 package business.concretes;
 
-import business.abstracts.ILanguageService;
-import business.abstracts.IQuestionService;
-import business.abstracts.IQuizService;
-import business.abstracts.IUnitService;
+import business.abstracts.*;
 import business.mappers.LanguageMapper;
 import dataAccess.abstracts.IFileReader;
 import dataAccess.abstracts.IFileWriter;
@@ -16,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LanguageValidator {
+public class LanguageValidator implements ILanguageValidate {
 
     private final String dataPath;
     private List<Language> languages;
