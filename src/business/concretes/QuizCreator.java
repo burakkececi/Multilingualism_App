@@ -19,16 +19,23 @@ public class QuizCreator implements IQuizService {
 
     public QuizCreator(IQuestionService iQuestionService) {
         this.iQuestionService = iQuestionService;
+    }
 
+    private void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    private void addQuestion(Question question) {
+        questions.add(question);
     }
 
     @Override
     public Quiz createQuiz(int index) {
         int numberOfQuestions = IRandomNumber.generateRandomNumber(MIN_QUESTION, MAX_QUESTION);
-        questions = new ArrayList<>();
+        setQuestions(new ArrayList<>());
         for (int i = 0; i < numberOfQuestions; i++) {
             try {
-                questions.add(iQuestionService.createQuestion());
+               addQuestion(iQuestionService.createQuestion());
             } catch (BusinessException e) {
                 System.out.println("Error: " + e.getMessage());
             }

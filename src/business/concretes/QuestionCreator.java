@@ -2,11 +2,7 @@ package business.concretes;
 
 import business.abstracts.IQuestionService;
 import business.abstracts.IRandomNumber;
-import entities.Question;
-import entities.ReadingQuestion;
-import entities.ListeningQuestion;
-import entities.SpeakingQuestion;
-import entities.WordMatchingQuestion;
+import entities.*;
 import errors.BusinessException;
 import errors.ErrorType;
 
@@ -22,10 +18,19 @@ public class QuestionCreator implements IQuestionService {
 
     @Override
     public Question createQuestion() {
+        return generateQuestion(QuestionTypes.values()[IRandomNumber.generateRandomNumber(0, 3)]);
+    }
+
+    @Override
+    public Question createQuestion(String questionType) {
+        return generateQuestion(QuestionTypes.valueOf(questionType));
+    }
+
+    private Question generateQuestion(QuestionTypes questionType) {
         int MIN_DURATION = 2;
         int MAX_DURATION = 5;
 
-        switch (QuestionTypes.values()[IRandomNumber.generateRandomNumber(0, 3)]) {
+        switch (questionType) {
             case READING -> {
                 return new ReadingQuestion(generateRandomString(), generateRandomString());
             }

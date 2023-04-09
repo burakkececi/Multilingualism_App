@@ -11,19 +11,4 @@ public class ListeningQuestion extends Question {
         this.audioQuestion = audioQuestion;
     }
 
-    public ListeningQuestion(ListeningQuestion oldListeningQuestion) {
-        super();
-        if (oldListeningQuestion == null) {
-            System.out.println("Fatal Error!");
-            System.exit(0);
-        }
-        this.stringQuestion = oldListeningQuestion.stringQuestion;
-        this.audioQuestion = oldListeningQuestion.audioQuestion;
-    }
-
-    @Override
-    public ListeningQuestion clone() {
-        return new ListeningQuestion(this);
-    }
-
 }

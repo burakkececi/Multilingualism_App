@@ -2,10 +2,11 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class League {
 
-    private LanguageName languageName;
+    private final LanguageName languageName;
     private List<User> users;
     private List<User> bronzeLeague;
     private List<User> silverLeague;
@@ -82,4 +83,39 @@ public class League {
         bronzeLeague.addAll(users);
         users.clear();
     }
+
+
+    public List<User> getTheBestUsersInLeague(String leagueName, int numberOfUsers) {
+        List<User> users = new ArrayList<>();
+        leagueName = leagueName.toUpperCase(Locale.UK);
+        switch (leagueName) {
+            case "BRONZE" -> {
+                for (int i = 0; i < numberOfUsers; i++) {
+                    users.add(bronzeLeague.get(i));
+                }
+            }
+            case "SILVER" -> {
+                for (int i = 0; i < numberOfUsers; i++) {
+                    users.add(silverLeague.get(i));
+                }
+            }
+            case "GOLD" -> {
+                for (int i = 0; i < numberOfUsers; i++) {
+                    users.add(goldLeague.get(i));
+                }
+            }
+            case "SAPPHIRE" -> {
+                for (int i = 0; i < numberOfUsers; i++) {
+                    users.add(sapphireLeague.get(i));
+                }
+            }
+            case "RUBY" -> {
+                for (int i = 0; i < numberOfUsers; i++) {
+                    users.add(rubyLeague.get(i));
+                }
+            }
+        }
+        return users;
+    }
+
 }

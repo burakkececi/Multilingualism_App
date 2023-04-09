@@ -8,8 +8,4 @@ public class Audio {
         this.durationInSeconds = durationInSeconds;
     }
 
-    public int getDurationInSeconds() {
-        return durationInSeconds;
-    }
-
 }
