@@ -69,7 +69,7 @@ public class MultilingualismApp {
 
     private int userTakeQuizzes(User user) {
         int numberOfQuizzes = findTheLanguage(user.getChosenLanguage()).getNumberOfQuizzes();
-        int numberOfQuizzesToSolve = user.decideTheNumberOfQuizzes(1, numberOfQuizzes);
+        int numberOfQuizzesToSolve = user.decideTheNumberOfQuizzes(6, numberOfQuizzes);
         user.setNumberOfSolvedQuizzes(numberOfQuizzesToSolve);
 
         int numberOfUnits = 0;
