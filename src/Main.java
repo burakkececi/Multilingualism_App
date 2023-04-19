@@ -8,8 +8,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Muhammed Efe İncir 270201029
-        // Burak Keçeci 290201103
 
         String path = "src/data/users.csv";
 

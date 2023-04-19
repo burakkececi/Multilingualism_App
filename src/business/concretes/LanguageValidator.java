@@ -20,10 +20,11 @@ public class LanguageValidator implements ILanguageValidate {
 
     public LanguageValidator(String dataPath) {
         this.dataPath = dataPath;
+        this.languages = new ArrayList<>();
     }
 
     private ILanguageService createLanguageCreator() {
-        setLanguageList(new ArrayList<>());
+        setLanguageList(this.languages);
         IQuestionService iQuestionService = new QuestionCreator();
         IQuizService iQuizService = new QuizCreator(iQuestionService);
         IUnitService iUnitService = new UnitCreator(iQuizService);
